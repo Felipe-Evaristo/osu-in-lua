@@ -9,8 +9,8 @@ function love.load()
 
     gameFont = love.graphics.newFont(40)
 
-    fullScream = love.window.getFullscreen()
-    love.window.setFullscreen(true, "desktop")
+    hitSound = love.audio.newSource( 'sounds/drum-hitclap.wav', 'static')
+
 end
 
 function love.update(dt)
@@ -34,6 +34,7 @@ function love.mousepressed( x, y, button, istouch, presses )
             score = score + 1
             target.x = math.random(30, love.graphics.getWidth())
             target.y = math.random(30, love.graphics.getHeight())
+            love.audio.play( hitSound )
         end
     end
 end
