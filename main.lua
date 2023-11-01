@@ -3,6 +3,8 @@ function love.load()
     target.x = 300
     target.y = 300
     target.radius = 50
+    target.time = 30
+    target.hitCircle = 250
     
     score = 0
     timer = 0
@@ -14,31 +16,62 @@ function love.load()
 end
 
 function love.update(dt)
-
+    target.time = target.time - 1
+    target.hitCircle = target.hitCircle - 0.6
 end
 
 function love.draw()
 
-    love.graphics.setColor(1,0,0)
-    love.graphics.circle('fill', target.x, target.y, target.radius)    
-   
+    --score
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(gameFont)
     love.graphics.print(score, 0, 0)
+
+    if target.time > 0 then
+        love.graphics.setColor(1,0,0)
+        love.graphics.circle('fill', target.x, target.y, target.radius)   
+        if target.hitCircle > target.radius then
+            if target.hitCircle > 85 then
+                love.graphics.setColor(1,1,1) 
+                love.graphics.circle('line', target.x, target.y, target.hitCircle)    
+            else
+                love.graphics.setColor(0,1,0) 
+                love.graphics.circle('line', target.x, target.y, target.hitCircle)    
+            end
+        end
+    else
+        target.time = 400
+        target.hitCircle = 250
+        moveTarget()
+        score = 0
+    end
+
+
+
 end
 
 function love.mousepressed( x, y, button, istouch, presses )
-    if button == 1 then
+    if button == 1 and (target.hitCircle > target.radius and target.hitCircle < 85) then
         local mouseToTarget = distanceBetween(x, y, target.x ,target.y)
         if mouseToTarget < target.radius then
-            score = score + 1
-            target.x = math.random(30, love.graphics.getWidth())
-            target.y = math.random(30, love.graphics.getHeight())
-            love.audio.play( hitSound )
+            hitTarget()
         end
     end
 end
 
 function distanceBetween(x1, y1, x2, y2)
     return math.sqrt( (x2 - x1)^2 + (y2 - y1)^2 )
+end
+
+function hitTarget()
+    score = score + 1
+    moveTarget()
+    love.audio.play( hitSound )
+    target.time = 400
+    target.hitCircle = 250
+end
+
+function moveTarget()
+    target.x = math.random(30, love.graphics.getWidth())
+    target.y = math.random(30, love.graphics.getHeight())
 end
