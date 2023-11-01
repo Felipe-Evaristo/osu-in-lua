@@ -25,7 +25,6 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(gameFont)
     love.graphics.print(score, 0, 0)
-
 end
 
 function love.mousepressed( x, y, button, istouch, presses )
