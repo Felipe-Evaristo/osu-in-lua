@@ -16,8 +16,17 @@ function love.load()
 end
 
 function love.update(dt)
+    -- do ifs for every level with diferents values
+
     target.time = target.time - 1
     target.hitCircle = target.hitCircle - 0.6
+
+    if love.keyboard.isDown( "z" , "x" ) and (target.hitCircle > target.radius and target.hitCircle < 85) then
+        local mouseToTarget = distanceBetween(love.mouse.getX(), love.mouse.getY(), target.x ,target.y)
+        if mouseToTarget < target.radius then
+            hitTarget()
+        end
+    end
 end
 
 function love.draw()
@@ -45,8 +54,6 @@ function love.draw()
         moveTarget()
         score = 0
     end
-
-
 
 end
 
