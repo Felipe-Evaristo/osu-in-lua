@@ -1,11 +1,18 @@
 function love.load()
     target = {}
-    target.x = 300
-    target.y = 300
+    target.x = math.random(30, love.graphics.getWidth())
+    target.y = math.random(30, love.graphics.getHeight())
     target.radius = 50
     target.time = 30
     target.hitCircle = 250
-    
+
+    nextTarget = {}
+    nextTarget.x = math.random(30, love.graphics.getWidth())
+    nextTarget.y = math.random(30, love.graphics.getHeight())
+    nextTarget.radius = 50
+    nextTarget.time = 30
+    nextTarget.hitCircle = 250    
+
     score = 0
     timer = 0
 
@@ -36,9 +43,15 @@ function love.draw()
     love.graphics.setFont(gameFont)
     love.graphics.print(score, 0, 0)
 
+    --next target
+    love.graphics.setColor(1,1,1) 
+    love.graphics.circle('fill', nextTarget.x, nextTarget.y, nextTarget.radius)  
+
     if target.time > 0 then
+        --current target
         love.graphics.setColor(1,0,0)
         love.graphics.circle('fill', target.x, target.y, target.radius)   
+
         if target.hitCircle > target.radius then
             if target.hitCircle > 85 then
                 love.graphics.setColor(1,1,1) 
@@ -79,6 +92,12 @@ function hitTarget()
 end
 
 function moveTarget()
-    target.x = math.random(30, love.graphics.getWidth())
-    target.y = math.random(30, love.graphics.getHeight())
+    target = nextTarget
+
+    nextTarget.x = math.random(30, love.graphics.getWidth())
+    nextTarget.y = math.random(30, love.graphics.getHeight())
+    nextTarget.radius = 50
+    nextTarget.time = 30
+    nextTarget.hitCircle = 250    
 end
+
