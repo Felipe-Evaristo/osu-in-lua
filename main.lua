@@ -20,6 +20,9 @@ function love.load()
 
     hitSound = love.audio.newSource( 'sounds/drum-hitclap.wav', 'static')
 
+    cursor = love.mouse.newCursor("/cursor/osu-cursor.png")
+    love.mouse.setCursor(cursor)
+
 end
 
 function love.update(dt)
@@ -97,7 +100,12 @@ function moveTarget()
     nextTarget.x = math.random(30, love.graphics.getWidth())
     nextTarget.y = math.random(30, love.graphics.getHeight())
     nextTarget.radius = 50
-    nextTarget.time = 30
+    nextTarget.time = 400
     nextTarget.hitCircle = 250    
 end
 
+function cursorScale(scale)
+    local x,y = love.mouse.getPosition()
+
+    love.graphics.draw(cursor, x, y, 0, scale, scale)
+end
