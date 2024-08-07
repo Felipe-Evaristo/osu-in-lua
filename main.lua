@@ -20,8 +20,11 @@ function love.load()
 
     hitSound = love.audio.newSource( 'sounds/drum-hitclap.wav', 'static')
 
-    cursor = love.mouse.newCursor("/cursor/osu-cursor.png")
-    love.mouse.setCursor(cursor)
+    cursorScale = 1.5
+    cursorImg = love.graphics.newImage("/cursor/osu-cursor.png")
+    love.mouse.setCursor(cursor, 0, 0)
+
+    love.mouse.setVisible(false)
 
 end
 
@@ -40,6 +43,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    --custom cursor
+    local x,y = love.mouse.getPosition()
+    love.graphics.draw(cursorImg, x - 80, y - 80)
 
     --score
     love.graphics.setColor(1,1,1)
