@@ -21,9 +21,9 @@ function love.load()
     hitSound = love.audio.newSource( 'sounds/drum-hitclap.wav', 'static')
 
     love.mouse.setVisible(false)
-    cursorScale = 1.5
     cursorImg = love.graphics.newImage("/cursor/osu-cursor.png")
-    love.mouse.setCursor(cursor, 0, 0)
+
+    wallpaper = love.graphics.newImage("/wallpaper/wallpaper-1.jpg")
 
     love.mouse.setVisible(false)
 
@@ -44,6 +44,15 @@ function love.update(dt)
 end
 
 function love.draw()
+    --wallpaper
+    --scale x
+    sx = love.graphics:getWidth() / wallpaper:getWidth()
+
+    --scale y
+    sy = love.graphics:getHeight() / wallpaper:getHeight()
+
+    love.graphics.draw(wallpaper, 0, 0, 0, sx, sy)
+
     --score
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(gameFont)
