@@ -43,23 +43,20 @@ function love.update(dt)
 end
 
 function love.draw()
-    --custom cursor
-    local x,y = love.mouse.getPosition()
-    love.graphics.draw(cursorImg, x - 80, y - 80)
-
     --score
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(gameFont)
     love.graphics.print(score, 0, 0)
 
     --next target
-    love.graphics.setColor(1,1,1) 
+    love.graphics.setColor(1,1,1)
     love.graphics.circle('fill', nextTarget.x, nextTarget.y, nextTarget.radius)  
 
     if target.time > 0 then
         --current target
         love.graphics.setColor(1,0,0)
         love.graphics.circle('fill', target.x, target.y, target.radius)   
+        love.graphics.setColor(1,1,1)
 
         if target.hitCircle > target.radius then
             if target.hitCircle > 85 then
@@ -67,7 +64,8 @@ function love.draw()
                 love.graphics.circle('line', target.x, target.y, target.hitCircle)    
             else
                 love.graphics.setColor(0,1,0) 
-                love.graphics.circle('line', target.x, target.y, target.hitCircle)    
+                love.graphics.circle('line', target.x, target.y, target.hitCircle) 
+                love.graphics.setColor(1,1,1)   
             end
         end
     else
@@ -77,10 +75,15 @@ function love.draw()
         score = 0
     end
 
+    --need to be the last for dont be overwritten
+    --custom cursor
+    local x,y = love.mouse.getPosition()
+    love.graphics.draw(cursorImg, x - 80, y - 80)
+
 end
 
 function love.mousepressed( x, y, button, istouch, presses )
-    if button == 1 and (target.hitCircle > target.radius and target.hitCircle < 85) then
+    if button == 1 and (target.hitCircle > target.radius and target.hitCircle < 70) then
         local mouseToTarget = distanceBetween(x, y, target.x ,target.y)
         if mouseToTarget < target.radius then
             hitTarget()
