@@ -25,6 +25,11 @@ function love.load()
     love.mouse.setCursor(cursor, 0, 0)
 
     love.mouse.setVisible(false)
+    cursorScale = 1.5
+    cursorImg = love.graphics.newImage("/cursor/osu-cursor.png")
+    love.mouse.setCursor(cursor, 0, 0)
+
+    love.mouse.setVisible(false)
 
 end
 
