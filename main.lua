@@ -24,11 +24,15 @@ function love.load()
     cursorImg = love.graphics.newImage("/cursor/osu-cursor.png")
 
     wallpaper = love.graphics.newImage("/wallpaper/wallpaper-1.jpg")
+    wallpaper:setFilter("linear", "linear")
 
     opacity = 0.2
 
     love.mouse.setVisible(false)
 
+    love.window.setMode(love.graphics:getWidth(), love.graphics:getHeight(), {msaa= 8})
+
+    love.graphics.setLineWidth(5)
 end
 
 function love.update(dt)
