@@ -25,6 +25,8 @@ function love.load()
 
     wallpaper = love.graphics.newImage("/wallpaper/wallpaper-1.jpg")
 
+    opacity = 0.2
+
     love.mouse.setVisible(false)
 
 end
@@ -51,7 +53,10 @@ function love.draw()
     --scale y
     sy = love.graphics:getHeight() / wallpaper:getHeight()
 
+    --wallpaper opacity
+    love.graphics.setColor(1, 1, 1, opacity)
     love.graphics.draw(wallpaper, 0, 0, 0, sx, sy)
+    love.graphics.setColor(1, 1, 1, 1)
 
     --score
     love.graphics.setColor(1,1,1)
